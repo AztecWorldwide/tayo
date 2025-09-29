@@ -3,385 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tayo - Dynamic Experience</title>
+    <title>liquid tayo</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@300;400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Times New Roman', serif;
-            background: radial-gradient(circle at 30% 70%, #1a1a1a 0%, #2d2d2d 50%, #0a0a0a 100%);
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            font-stretch: condensed;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
             cursor: none;
         }
-
-        /* Custom cursor */
-        .cursor {
+        
+        .custom-cursor {
             position: fixed;
             width: 20px;
             height: 20px;
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 70%, transparent 100%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: difference;
             transition: transform 0.1s ease;
         }
-
-        /* Dynamic background grid */
-        .bg-grid {
-            position: absolute;
+        
+        .liquid-bg {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 140, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 140, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Floating geometric shapes */
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: floatShape 15s ease-in-out infinite;
-        }
-
-        .shape:nth-child(odd) {
-            animation-direction: reverse;
-        }
-
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 30px solid transparent;
-            border-right: 30px solid transparent;
-            border-bottom: 50px solid #ff8c00;
-        }
-
-        .circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
-        }
-
-        .square {
-            width: 40px;
-            height: 40px;
-            background: #ff8c00;
-            transform: rotate(45deg);
-        }
-
-        .hexagon {
-            width: 50px;
-            height: 28.87px;
-            background: #ff4500;
-            position: relative;
-        }
-
-        .hexagon:before,
-        .hexagon:after {
-            content: "";
-            position: absolute;
-            width: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-        }
-
-        .hexagon:before {
-            bottom: 100%;
-            border-bottom: 14.43px solid #ff4500;
-        }
-
-        .hexagon:after {
-            top: 100%;
-            border-top: 14.43px solid #ff4500;
-        }
-
-        @keyframes floatShape {
-            0%, 100% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10%, 90% {
-                opacity: 0.1;
-            }
-            50% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0.2;
-            }
-        }
-
-        /* Main content container */
-        .content {
-            position: relative;
-            z-index: 100;
+            width: 100vw;
             height: 100vh;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .blob1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .blob2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #a8e6cf, #ffd93d);
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+        
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #ff8a80, #8c9eff);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        .container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            padding: 2rem;
+            position: relative;
         }
-
-        /* Dynamic Tayo title */
+        
         .main-title {
             font-size: clamp(4rem, 12vw, 12rem);
-            font-weight: bold;
-            letter-spacing: -0.02em;
-            background: linear-gradient(45deg, #ff8c00, #ff4500, #ff8c00, #ff4500);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite, titleFloat 6s ease-in-out infinite;
-            position: relative;
+            font-weight: 300;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            text-align: center;
             margin-bottom: 2rem;
-            filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.3));
-        }
-
-        .main-title::before {
-            content: 'Tayo';
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 140, 0, 0.1), transparent);
+            background: linear-gradient(45deg, #ffffff, #a8a8a8, #ffffff);
+            background-size: 200% 200%;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 2s linear infinite;
+            animation: shimmer 3s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
-
-        @keyframes gradientShift {
+        
+        .main-title:hover {
+            transform: scale(1.05);
+            filter: blur(0.5px);
+        }
+        
+        @keyframes shimmer {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-
-        @keyframes titleFloat {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 2rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            animation: fadeInUp 2s ease-out 0.5s both;
         }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* Woodward with letter animation */
-        .secondary-title {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 600;
-            color: #ff8c00;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .letter {
-            display: inline-block;
-            animation: letterDance 4s ease-in-out infinite;
-            animation-delay: calc(var(--i) * 0.1s);
-        }
-
-        @keyframes letterDance {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            25% { 
-                transform: translateY(-15px) rotate(5deg) scale(1.1);
-                opacity: 0.8;
-            }
-            50% { 
-                transform: translateY(-5px) rotate(-3deg) scale(0.95);
-                opacity: 1;
-            }
-            75% { 
-                transform: translateY(-10px) rotate(2deg) scale(1.05);
-                opacity: 0.9;
-            }
-        }
-
-        /* Orbital rings around content */
-        .orbital-ring {
-            position: absolute;
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 50%;
-            animation: rotate 20s linear infinite;
-        }
-
-        .ring-1 {
-            width: 300px;
-            height: 300px;
+        
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
         }
-
-        .ring-2 {
-            width: 500px;
-            height: 500px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-duration: 30s;
-            animation-direction: reverse;
-        }
-
-        .ring-3 {
-            width: 700px;
-            height: 700px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-duration: 25s;
-        }
-
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Orbital dots */
-        .orbital-dot {
-            position: absolute;
+        
+        .dot {
             width: 8px;
             height: 8px;
-            background: #ff8c00;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ff8c00;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
-        .dot-1 { animation: orbitDot1 15s linear infinite; }
-        .dot-2 { animation: orbitDot2 20s linear infinite; }
-        .dot-3 { animation: orbitDot3 25s linear infinite; }
-
-        @keyframes orbitDot1 {
-            from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        
+        .dot:hover, .dot.active {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.5);
         }
-
-        @keyframes orbitDot2 {
-            from { transform: rotate(0deg) translateX(250px) rotate(0deg); }
-            to { transform: rotate(-360deg) translateX(250px) rotate(360deg); }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 4rem;
         }
-
-        @keyframes orbitDot3 {
-            from { transform: rotate(0deg) translateX(350px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(350px) rotate(-360deg); }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
         }
-
-        /* Dynamic divider */
-        .dynamic-divider {
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff8c00, #ff4500, #ff8c00, transparent);
-            background-size: 200% 100%;
-            animation: dividerFlow 3s ease-in-out infinite;
-            margin: 2rem auto;
-            position: relative;
+        
+        .card:nth-child(1) { animation-delay: 1s; }
+        .card:nth-child(2) { animation-delay: 1.2s; }
+        .card:nth-child(3) { animation-delay: 1.4s; }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
-        .dynamic-divider::before,
-        .dynamic-divider::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ff8c00;
-            border-radius: 50%;
-            top: -4px;
-            animation: dotBounce 2s ease-in-out infinite;
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
         }
-
-        .dynamic-divider::before {
-            left: -15px;
+        
+        .card-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            letter-spacing: 0.02em;
         }
-
-        .dynamic-divider::after {
-            right: -15px;
-            animation-delay: 1s;
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        @keyframes dividerFlow {
-            0%, 100% { background-position: 0% 0%; }
-            50% { background-position: 100% 0%; }
-        }
-
-        @keyframes dotBounce {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.2); }
-        }
-
-        /* Powered by text with glitch effect */
-        .powered-by {
-            font-size: 1rem;
-            color: #a0a0a0;
-            font-weight: 300;
-            letter-spacing: 2px;
-            position: relative;
-            animation: textGlitch 5s ease-in-out infinite;
-        }
-
-        .powered-by::before {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: #ff8c00;
-            opacity: 0.7;
-            animation: glitchOffset 0.3s ease-in-out infinite;
-        }
-
-        @keyframes textGlitch {
-            0%, 90%, 100% { transform: translate(0); }
-            91%, 93% { transform: translate(-2px, 1px); }
-            92%, 94% { transform: translate(2px, -1px); }
-        }
-
-        @keyframes glitchOffset {
-            0%, 90%, 100% { transform: translate(0); }
-            91% { transform: translate(1px, -1px); }
-            92% { transform: translate(-1px, 1px); }
-            93% { transform: translate(1px, 1px); }
-            94% { transform: translate(-1px, -1px); }
-        }
-
-        /* Particle system */
-        .particle-system {
-            position: absolute;
+        
+        .floating-elements {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: -1;
         }
-
-        .particle {
+        
+        .float-item {
             position: absolute;
             width: 2px;
             height: 2px;
-            background: #ff8c00;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
-            animation: particleFloat 8s linear infinite;
+            animation: floatUp 8s linear infinite;
         }
-
-        @keyframes particleFloat {
+        
+        @keyframes floatUp {
             0% {
-                transform: translateY(100vh) translateX(0px);
+                transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
             }
             10% {
@@ -391,145 +241,139 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) translateX(100px);
+                transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
         }
-
-        /* Responsive design */
+        
         @media (max-width: 768px) {
-            .ring-2, .ring-3 { display: none; }
-            .secondary-title { font-size: clamp(1.5rem, 8vw, 3rem); }
+            .nav-dots {
+                display: none;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="bg-grid"></div>
+    <div class="custom-cursor"></div>
     
-    <!-- Floating shapes -->
-    <div class="shape triangle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="shape circle" style="left: 20%; animation-delay: 2s;"></div>
-    <div class="shape square" style="left: 70%; animation-delay: 1s;"></div>
-    <div class="shape hexagon" style="left: 80%; animation-delay: 3s;"></div>
-    <div class="shape triangle" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="shape circle" style="left: 30%; animation-delay: 5s;"></div>
-    <div class="shape square" style="left: 90%; animation-delay: 1.5s;"></div>
-    <div class="shape hexagon" style="left: 5%; animation-delay: 2.5s;"></div>
-
-    <!-- Orbital rings -->
-    <div class="orbital-ring ring-1"></div>
-    <div class="orbital-ring ring-2"></div>
-    <div class="orbital-ring ring-3"></div>
-
-    <!-- Orbital dots -->
-    <div class="orbital-dot dot-1" style="top: 50%; left: 50%;"></div>
-    <div class="orbital-dot dot-2" style="top: 50%; left: 50%;"></div>
-    <div class="orbital-dot dot-3" style="top: 50%; left: 50%;"></div>
-
-    <!-- Particle system -->
-    <div class="particle-system"></div>
-
-    <!-- Main content -->
-    <div class="content">
-        <h1 class="main-title">Tayo</h1>
-        
-        <h2 class="secondary-title">
-            <span class="letter" style="--i:0">W</span>
-            <span class="letter" style="--i:1">o</span>
-            <span class="letter" style="--i:2">o</span>
-            <span class="letter" style="--i:3">d</span>
-            <span class="letter" style="--i:4">w</span>
-            <span class="letter" style="--i:5">a</span>
-            <span class="letter" style="--i:6">r</span>
-            <span class="letter" style="--i:7">d</span>
-        </h2>
-        
-        <div class="dynamic-divider"></div>
-        
-        <p class="powered-by" data-text="Powered by Zernike Intelligence">
-            Powered by Zernike Intelligence
-        </p>
+    <div class="liquid-bg">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
     </div>
-
-    <script>
-        // Custom cursor following mouse
-        const cursor = document.querySelector('.cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Dynamic particle generation
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 2 + 's';
-            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+    
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="nav-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    
+    <div class="container">
+        <h1 class="main-title">liquid<br>tayo</h1>
+        <p class="subtitle">fluid dynamics</p>
+        
+        <div class="content-grid">
+            <div class="card">
+                <h3 class="card-title">flow</h3>
+                <p class="card-text">infinite possibilities converge in perpetual motion, where boundaries dissolve into seamless transitions</p>
+            </div>
             
-            document.querySelector('.particle-system').appendChild(particle);
+            <div class="card">
+                <h3 class="card-title">essence</h3>
+                <p class="card-text">pure form meets function in spaces between thoughts, creating moments of crystalline clarity</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">beyond</h3>
+                <p class="card-text">transcendent experiences emerge from the intersection of technology and human consciousness</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+        
+        // Floating particles
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'float-item';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            element.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('floatingElements').appendChild(element);
             
             setTimeout(() => {
-                particle.remove();
+                element.remove();
             }, 8000);
         }
-
-        // Generate particles continuously
-        setInterval(createParticle, 200);
-
-        // Interactive elements on click
-        document.addEventListener('click', (e) => {
-            // Create explosion effect at click point
-            for (let i = 0; i < 8; i++) {
-                const spark = document.createElement('div');
-                spark.style.position = 'absolute';
-                spark.style.width = '4px';
-                spark.style.height = '4px';
-                spark.style.background = '#ff8c00';
-                spark.style.borderRadius = '50%';
-                spark.style.left = e.clientX + 'px';
-                spark.style.top = e.clientY + 'px';
-                spark.style.pointerEvents = 'none';
-                spark.style.zIndex = '1000';
-                
-                const angle = (360 / 8) * i;
-                const distance = 50;
-                const x = Math.cos(angle * Math.PI / 180) * distance;
-                const y = Math.sin(angle * Math.PI / 180) * distance;
-                
-                spark.style.animation = `sparkFly 0.8s ease-out forwards`;
-                spark.style.setProperty('--x', x + 'px');
-                spark.style.setProperty('--y', y + 'px');
-                
-                document.body.appendChild(spark);
-                
-                setTimeout(() => spark.remove(), 800);
-            }
+        
+        setInterval(createFloatingElement, 300);
+        
+        // Interactive elements
+        const cards = document.querySelectorAll('.card');
+        const title = document.querySelector('.main-title');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.05)';
+            });
         });
-
-        // Add spark animation
-        const sparkStyle = document.createElement('style');
-        sparkStyle.textContent = `
-            @keyframes sparkFly {
-                0% {
-                    transform: translate(0, 0) scale(1);
-                    opacity: 1;
+        
+        // Title interaction
+        title.addEventListener('click', () => {
+            title.style.transform = 'scale(1.1) rotate(1deg)';
+            setTimeout(() => {
+                title.style.transform = 'scale(1) rotate(0deg)';
+            }, 200);
+        });
+        
+        // Navigation dots
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                
+                // Trigger different animations based on dot
+                if (index === 1) {
+                    document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0a0a0a 100%)';
+                } else if (index === 2) {
+                    document.body.style.background = 'linear-gradient(135deg, #16213e 0%, #0a0a0a 50%, #1a1a2e 100%)';
+                } else {
+                    document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)';
                 }
-                100% {
-                    transform: translate(var(--x), var(--y)) scale(0);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(sparkStyle);
-
-        // Dynamic background color shift
-        let hue = 0;
-        setInterval(() => {
-            hue = (hue + 0.5) % 360;
-            document.body.style.filter = `hue-rotate(${hue}deg)`;
-        }, 100);
+            });
+        });
+        
+        // Parallax scroll effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.liquid-bg');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
     </script>
 </body>
 </html>
