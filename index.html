@@ -16,10 +16,11 @@
         body {
             font-family: 'Times New Roman', serif;
             font-stretch: condensed;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: #0a0a0a;
             color: #ffffff;
             overflow-x: hidden;
             cursor: none;
+            scroll-behavior: smooth;
         }
         
         .custom-cursor {
@@ -33,84 +34,159 @@
             transition: transform 0.1s ease;
         }
         
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        
+        .nav-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
         .liquid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
-            opacity: 0.3;
+            z-index: -2;
+            opacity: 0.4;
         }
         
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(40px);
-            animation: float 6s ease-in-out infinite;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
         }
         
         .blob1 {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            top: 20%;
-            left: 10%;
+            top: 10%;
+            left: 5%;
             animation-delay: 0s;
         }
         
         .blob2 {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             background: linear-gradient(45deg, #a8e6cf, #ffd93d);
-            top: 60%;
-            right: 20%;
-            animation-delay: 2s;
+            top: 50%;
+            right: 10%;
+            animation-delay: 3s;
         }
         
         .blob3 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(45deg, #ff8a80, #8c9eff);
+            bottom: 5%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+        
+        .blob4 {
             width: 250px;
             height: 250px;
-            background: linear-gradient(45deg, #ff8a80, #8c9eff);
-            bottom: 10%;
-            left: 30%;
-            animation-delay: 4s;
+            background: linear-gradient(45deg, #ffab91, #80deea);
+            top: 25%;
+            right: 30%;
+            animation-delay: 2s;
         }
         
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(40px, -40px) scale(1.1) rotate(90deg); }
+            50% { transform: translate(-30px, 30px) scale(0.9) rotate(180deg); }
+            75% { transform: translate(20px, -20px) scale(1.05) rotate(270deg); }
         }
         
-        .container {
+        .section {
             min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
-            position: relative;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         }
         
         .main-title {
-            font-size: clamp(4rem, 12vw, 12rem);
+            font-size: clamp(6rem, 15vw, 18rem);
             font-weight: 300;
             letter-spacing: -0.05em;
-            line-height: 0.8;
-            text-align: center;
+            line-height: 0.75;
             margin-bottom: 2rem;
-            background: linear-gradient(45deg, #ffffff, #a8a8a8, #ffffff);
-            background-size: 200% 200%;
+            background: linear-gradient(45deg, #ffffff, #a8a8a8, #ffffff, #d4d4d4);
+            background-size: 400% 400%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: shimmer 4s ease-in-out infinite;
             transition: all 0.3s ease;
         }
         
         .main-title:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             filter: blur(0.5px);
         }
         
@@ -120,13 +196,288 @@
         }
         
         .subtitle {
-            font-size: clamp(1rem, 3vw, 2rem);
+            font-size: clamp(1.5rem, 4vw, 3rem);
             font-weight: 300;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            opacity: 0.7;
+            opacity: 0.8;
             margin-bottom: 4rem;
             animation: fadeInUp 2s ease-out 0.5s both;
+        }
+        
+        .hero-description {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            max-width: 800px;
+            line-height: 1.6;
+            opacity: 0.7;
+            animation: fadeInUp 2s ease-out 1s both;
+        }
+        
+        .products-section {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 50%, #0a0a0a 100%);
+            padding: 8rem 2rem;
+        }
+        
+        .section-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .product-card:hover::before {
+            left: 100%;
+        }
+        
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .product-number {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .product-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            letter-spacing: 0.02em;
+            margin-bottom: 2rem;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .product-features li {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .product-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+        
+        .science-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 8rem 2rem;
+        }
+        
+        .science-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        
+        .science-text {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease;
+        }
+        
+        .science-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .science-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .science-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            letter-spacing: 0.02em;
+            margin-bottom: 3rem;
+        }
+        
+        .science-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #ffffff, #a8a8a8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .ingredients-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0a0a0a 100%);
+            padding: 8rem 2rem;
+        }
+        
+        .ingredients-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .ingredient-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        .ingredient-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .ingredient-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.05);
+        }
+        
+        .ingredient-name {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .ingredient-benefit {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+        
+        .footer {
+            background: #0a0a0a;
+            padding: 6rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         
         .nav-dots {
@@ -147,6 +498,21 @@
             background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .dot::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
         
         .dot:hover, .dot.active {
@@ -154,60 +520,9 @@
             transform: scale(1.5);
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 4rem;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease-out forwards;
-        }
-        
-        .card:nth-child(1) { animation-delay: 1s; }
-        .card:nth-child(2) { animation-delay: 1.2s; }
-        .card:nth-child(3) { animation-delay: 1.4s; }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            letter-spacing: 0.05em;
-        }
-        
-        .card-text {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            opacity: 0.8;
-            letter-spacing: 0.02em;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .dot:hover::after, .dot.active::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
         }
         
         .floating-elements {
@@ -222,11 +537,11 @@
         
         .float-item {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.6);
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            animation: floatUp 8s linear infinite;
+            animation: floatUp 12s linear infinite;
         }
         
         @keyframes floatUp {
@@ -246,94 +561,280 @@
             }
         }
         
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         @media (max-width: 768px) {
-            .nav-dots {
-                display: none;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
+            .nav-dots { display: none; }
+            .nav-links { display: none; }
+            .section { padding: 4rem 1rem; }
+            .science-content { grid-template-columns: 1fr; gap: 3rem; }
+            .science-stats { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .ingredients-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="custom-cursor"></div>
     
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">liquid tayo</div>
+            <ul class="nav-links">
+                <li><a href="#hero">home</a></li>
+                <li><a href="#products">products</a></li>
+                <li><a href="#science">science</a></li>
+                <li><a href="#ingredients">ingredients</a></li>
+            </ul>
+        </div>
+    </nav>
+    
     <div class="liquid-bg">
         <div class="blob blob1"></div>
         <div class="blob blob2"></div>
         <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
     </div>
     
     <div class="floating-elements" id="floatingElements"></div>
     
     <div class="nav-dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot active" data-section="hero"></div>
+        <div class="dot" data-section="products"></div>
+        <div class="dot" data-section="science"></div>
+        <div class="dot" data-section="ingredients"></div>
     </div>
     
-    <div class="container">
+    <section id="hero" class="section hero">
         <h1 class="main-title">liquid<br>tayo</h1>
         <p class="subtitle">solar protection</p>
-        
-        <div class="content-grid">
-            <div class="card">
-                <h3 class="card-title">shield</h3>
-                <p class="card-text">broad spectrum protection flows seamlessly into skin, creating an invisible barrier against time itself</p>
+        <p class="hero-description">revolutionary sunscreen technology that flows with your skin's natural rhythm, delivering invisible defense against time and elements</p>
+    </section>
+    
+    <section id="products" class="section products-section">
+        <h2 class="section-title">collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-number">01</div>
+                <h3 class="product-title">shield daily</h3>
+                <p class="product-description">weightless broad spectrum spf 50+ that disappears into skin, leaving no residue while providing all-day protection</p>
+                <ul class="product-features">
+                    <li>zinc oxide + titanium dioxide</li>
+                    <li>water resistant 80 minutes</li>
+                    <li>non-comedogenic formula</li>
+                    <li>reef safe ingredients</li>
+                </ul>
+                <div class="product-price">$48</div>
             </div>
             
-            <div class="card">
-                <h3 class="card-title">essence</h3>
-                <p class="card-text">weightless formula delivers spf 50+ defense while nourishing cellular renewal and hydration</p>
+            <div class="product-card">
+                <div class="product-number">02</div>
+                <h3 class="product-title">shield sport</h3>
+                <p class="product-description">ultra-resistant formula engineered for extreme conditions, sweat-proof technology meets luxury skincare</p>
+                <ul class="product-features">
+                    <li>spf 50+ broad spectrum</li>
+                    <li>water resistant 120 minutes</li>
+                    <li>antioxidant complex</li>
+                    <li>quick absorption</li>
+                </ul>
+                <div class="product-price">$52</div>
             </div>
             
-            <div class="card">
-                <h3 class="card-title">beyond</h3>
-                <p class="card-text">transcendent sun care that adapts to your skin's rhythm, preserving youth through liquid innovation</p>
+            <div class="product-card">
+                <div class="product-number">03</div>
+                <h3 class="product-title">shield glow</h3>
+                <p class="product-description">illuminating sunscreen that enhances natural radiance while providing superior protection and hydration</p>
+                <ul class="product-features">
+                    <li>tinted mineral formula</li>
+                    <li>hyaluronic acid boost</li>
+                    <li>light reflecting particles</li>
+                    <li>universal shade</li>
+                </ul>
+                <div class="product-price">$56</div>
             </div>
         </div>
-    </div>
+    </section>
+    
+    <section id="science" class="section science-section">
+        <h2 class="section-title">innovation</h2>
+        <div class="science-content">
+            <div class="science-text">
+                <h3 class="science-title">liquid crystalline technology</h3>
+                <p class="science-description">our breakthrough liquid crystal matrix adapts to skin temperature and movement, creating a dynamic barrier that maintains protection while allowing natural skin function. this revolutionary delivery system ensures optimal coverage distribution and enhanced comfort.</p>
+                <div class="science-stats">
+                    <div class="stat">
+                        <div class="stat-number">99.7%</div>
+                        <div class="stat-label">uv protection</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24hr</div>
+                        <div class="stat-label">hydration</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">0.3s</div>
+                        <div class="stat-label">absorption</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">invisible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="ingredients" class="section ingredients-section">
+        <h2 class="section-title">elements</h2>
+        <div class="ingredients-grid">
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">zinc oxide</h4>
+                <p class="ingredient-benefit">mineral shield providing broad spectrum protection without chemical absorption</p>
+            </div>
+            
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">niacinamide</h4>
+                <p class="ingredient-benefit">cellular renewal accelerator that strengthens skin barrier while reducing inflammation</p>
+            </div>
+            
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">hyaluronic complex</h4>
+                <p class="ingredient-benefit">moisture binding technology that maintains hydration throughout sun exposure</p>
+            </div>
+            
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">vitamin c ester</h4>
+                <p class="ingredient-benefit">antioxidant defense system that neutralizes free radicals and brightens</p>
+            </div>
+            
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">ceramide blend</h4>
+                <p class="ingredient-benefit">lipid restoration complex that repairs and maintains skin barrier integrity</p>
+            </div>
+            
+            <div class="ingredient-card">
+                <h4 class="ingredient-name">peptide matrix</h4>
+                <p class="ingredient-benefit">collagen synthesis support that promotes firmness and resilience</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">liquid tayo</div>
+            <div class="footer-text">transcendent sun protection</div>
+        </div>
+    </footer>
     
     <script>
-        // Custom cursor
+        // Enhanced cursor with trail effect
         const cursor = document.querySelector('.custom-cursor');
+        const trailElements = [];
+        
+        // Create cursor trail
+        for (let i = 0; i < 5; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trailElements.push(trail);
+        }
+        
+        let mouseX = 0, mouseY = 0;
         
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 10 + 'px';
+            cursor.style.top = mouseY - 10 + 'px';
         });
         
-        // Floating particles
+        // Animate cursor trail
+        function updateTrail() {
+            let x = mouseX, y = mouseY;
+            
+            trailElements.forEach((trail, index) => {
+                trail.style.left = x - 2 + 'px';
+                trail.style.top = y - 2 + 'px';
+                trail.style.opacity = (5 - index) / 10;
+                
+                x += (mouseX - x) * 0.3;
+                y += (mouseY - y) * 0.3;
+            });
+            
+            requestAnimationFrame(updateTrail);
+        }
+        updateTrail();
+        
+        // Enhanced floating particles
         function createFloatingElement() {
             const element = document.createElement('div');
             element.className = 'float-item';
             element.style.left = Math.random() * 100 + '%';
-            element.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            element.style.animationDelay = Math.random() * 2 + 's';
+            element.style.animationDuration = (Math.random() * 4 + 8) + 's';
+            element.style.animationDelay = Math.random() * 3 + 's';
+            element.style.opacity = Math.random() * 0.6 + 0.2;
             
             document.getElementById('floatingElements').appendChild(element);
             
             setTimeout(() => {
                 element.remove();
-            }, 8000);
+            }, 12000);
         }
         
-        setInterval(createFloatingElement, 300);
+        setInterval(createFloatingElement, 200);
         
-        // Interactive elements
-        const cards = document.querySelectorAll('.card');
-        const title = document.querySelector('.main-title');
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
         
-        cards.forEach(card => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.section-title, .product-card, .science-text, .ingredient-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Parallax effect for blobs
+            const scrolled = window.pageYOffset;
+            const blobs = document.querySelectorAll('.blob');
+            blobs.forEach((blob, index) => {
+                const speed = 0.2 + (index * 0.1);
+                blob.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Enhanced product card interactions
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
             card.addEventListener('mouseenter', () => {
-                card.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
+                const randomHue = Math.random() * 360;
+                card.style.background = `hsla(${randomHue}, 30%, 50%, 0.1)`;
             });
             
             card.addEventListener('mouseleave', () => {
@@ -341,39 +842,92 @@
             });
         });
         
-        // Title interaction
-        title.addEventListener('click', () => {
-            title.style.transform = 'scale(1.1) rotate(1deg)';
-            setTimeout(() => {
-                title.style.transform = 'scale(1) rotate(0deg)';
-            }, 200);
+        // Navigation dots functionality
+        const dots = document.querySelectorAll('.dot');
+        const sections = document.querySelectorAll('.section');
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const targetSection = dot.getAttribute('data-section');
+                document.getElementById(targetSection).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
         
-        // Navigation dots
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                dots.forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
+        // Update active dot on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + 200;
+            
+            sections.forEach((section, index) => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
                 
-                // Trigger different animations based on dot
-                if (index === 1) {
-                    document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0a0a0a 100%)';
-                } else if (index === 2) {
-                    document.body.style.background = 'linear-gradient(135deg, #16213e 0%, #0a0a0a 50%, #1a1a2e 100%)';
-                } else {
-                    document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)';
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[index].classList.add('active');
                 }
             });
         });
         
-        // Parallax scroll effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.liquid-bg');
-            const speed = scrolled * 0.5;
-            parallax.style.transform = `translateY(${speed}px)`;
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
+        
+        // Interactive stats counter
+        const stats = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent;
+                    
+                    if (finalValue.includes('%')) {
+                        animateNumber(target, 0, parseFloat(finalValue), '%');
+                    } else if (finalValue.includes('hr')) {
+                        animateNumber(target, 0, parseInt(finalValue), 'hr');
+                    } else if (finalValue.includes('s')) {
+                        animateNumber(target, 0, parseFloat(finalValue), 's');
+                    } else {
+                        animateNumber(target, 0, parseInt(finalValue), '%');
+                    }
+                    
+                    statsObserver.unobserve(target);
+                }
+            });
+        });
+        
+        stats.forEach(stat => statsObserver.observe(stat));
+        
+        function animateNumber(element, start, end, suffix) {
+            const duration = 2000;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = start + (end - start) * easeOutExpo(progress);
+                
+                element.textContent = current.toFixed(suffix === 's' ? 1 : 0) + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+        
+        function easeOutExpo(t) {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
     </script>
 </body>
 </html>
